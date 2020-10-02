@@ -66,7 +66,7 @@ str(popParse)
 
 9. We now have a `popParse` object that includes nodes, or HTML elements from the web page.
 
-<blockquote>Why are we talking about markup language, HTML, and tags? Most web page are written using hyper-text markup language (HTML). HTML is a type of markup language, that is based on tags <code>[<tag></tag>]</code> that "mark up" different elements of text and shape how they display on a web page. HTML syntax involves opening and closing tags (example: <code>[<tag></tag>]</code>) that don't appear on the web page but are part of the back-end structure of the web page. Looking for patterns in these tags can help us identify and parse different parts of a web page. For more on HTML, visit <a href="https://www.w3schools.com/html/html_intro.asp">W3Schools HTML Introduction</a>.</blockquote>
+<blockquote>Why are we talking about markup language, HTML, and tags? Most web page are written using hyper-text markup language (HTML). HTML is a type of markup language, that is based on tags that "mark up" different elements of text and shape how they display on a web page. HTML syntax involves opening and closing tags that don't appear on the web page but are part of the back-end structure of the web page. Looking for patterns in these tags can help us identify and parse different parts of a web page. For more on HTML, visit <a href="https://www.w3schools.com/html/html_intro.asp">W3Schools HTML Introduction</a>.</blockquote>
 
 10. We can now work on transforming our `popParse` object into a table. This will involve multiple steps.
 

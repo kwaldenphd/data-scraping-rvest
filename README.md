@@ -20,6 +20,11 @@ For more details on the `rvest` package as part of the `tidyverse`, check out th
 This lab is based on the ["Introduction to Data Scraping with R"](https://remiller1450.github.io/s230s19/Intro_to_Web_Scraping.html) lab materials developed by [Dr. Ryan Miller](https://remiller1450.github.io/) for the the [STA 230 "Introduction to Data Science" course](https://remiller1450.github.io/sta230f19.html). 
 
 # Table of Contents
+- [Setting Up the Environment](#setting-up-the-environment)
+- [Scraping a Wikipedia Table Using `rvest`](#scraping-a-wikipedia-table-using-rvest)
+- [Scraping Movie Box Office Data](#scraping-movie-box-office-data)
+- [Parsing Unstructured Text Using HTML and CSS](#parsing-unstructured-text-using-html-and-css)
+- [Lab Notebook Questions](#lab-notebook-questions)
 
 # Setting Up the Environment
 
@@ -135,7 +140,7 @@ head(pop2)
 ```
 Take a look at `pop2`. Now we have a data frame that could be used for different kinds of analysis and visualization.
 
-# Scraping movie box office data
+# Scraping Movie Box Office Data
 
 The web site [Box Office Mojo](http://www.boxofficemojo.com/) gives statistics on box office earnings of movies. In addition to daily earnings, the web site also maintains lists of yearly and all time record holders.
 

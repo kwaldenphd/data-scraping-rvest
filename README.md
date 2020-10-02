@@ -183,76 +183,68 @@ head(out)
 movies$`Lifetime Gross` <- as.numeric(out)
 ```
 
-39. So far the two examples we’ve looked at extract tables from a webpage, but lots of other information from a webpage can be extracted using `rvest`. 
-
-40. For example, we could extract image data from the Box Office Mojo webpage.
-```R
-moviesImg <- html_nodes(movieParse, "img")
-head(moviesImg)
-```
-
 # Parsing Unstructured Text Using HTML and CSS
 
-41. This section of the lab will look at David Leonhardt and Stuart A. Thompson's December 2017 *New York Times* article "[Trump's Lies](https://www.nytimes.com/interactive/2017/06/23/opinion/trumps-lies.html)."
+39. This section of the lab will look at David Leonhardt and Stuart A. Thompson's December 2017 *New York Times* article "[Trump's Lies](https://www.nytimes.com/interactive/2017/06/23/opinion/trumps-lies.html)."
 
-42. Our goal here is to transform the body of text into a clean data.frame containing three fields:
+40. Our goal here is to transform the body of text into a clean data.frame containing three fields:
 - Text of the lie
 - Lie date
 - Lie URL source
 
-43. Navigate to https://www.nytimes.com/interactive/2017/06/23/opinion/trumps-lies.html in a web brwoser. Explore the public-facing page as well as the source HTML.
+41. Navigate to https://www.nytimes.com/interactive/2017/06/23/opinion/trumps-lies.html in a web brwoser. Explore the public-facing page as well as the source HTML.
 
-44. Sometimes we might want to extract specific nodes that are defined by CSS (Cascading Style Sheets, a langauge which defines the style of an html page). For this goal, it can be very useful to view to html source code of a page for guidance.
+42. Sometimes we might want to extract specific nodes that are defined by CSS (Cascading Style Sheets, a langauge which defines the style of an html page). For this goal, it can be very useful to view to html source code of a page for guidance.
 
-45. To view the HTML code behind a webpage, right click anywhere on the page and select “View Page Source” in Chrome or Firefox, “View Source” in Internet Explorer, or “Show Page Source” in Safari. (If that option doesn’t appear in Safari, just open Safari Preferences, select the Advanced tab, and check “Show Develop menu in menu bar”.)
+43. To view the HTML code behind a webpage, right click anywhere on the page and select “View Page Source” in Chrome or Firefox, “View Source” in Internet Explorer, or “Show Page Source” in Safari. (If that option doesn’t appear in Safari, just open Safari Preferences, select the Advanced tab, and check “Show Develop menu in menu bar”.)
 
-46. From inspecting the html source code, we see that each lie has the following format.
+44. From inspecting the html source code, we see that each lie has the following format.
 ```HTML
 <span class="short-desc"><strong> DATE </strong> LIE <span class="short-truth"><a href="URL"> EXPLANATION </a></span></span>
 ```
 
-47. This tells us that extracting all `<span>` tags belonging to the class `“short-desc”` will provide us what we need.
+45. This tells us that extracting all `<span>` tags belonging to the class `“short-desc”` will provide us what we need.
 
-48. First step is creating a data object from the parsed HTML.
+46. First step is creating a data object from the parsed HTML.
 ```R
 # reads HTML
 NytTrump <- read_html("https://www.nytimes.com/interactive/2017/06/23/opinion/trumps-lies.html")
 ```
 
-49. Then we want to extract the nodes that include the `"short-desc"` class.
+47. Then we want to extract the nodes that include the `"short-desc"` class.
 ```R
 # extracts short-desc nodes 
 lies <- html_nodes(NytTrump, ".short-desc")
 lies
 ```
 
-50. The `“.”` in from of `“short-desc”` is [CSS selector syntax](https://www.w3schools.com/cssref/css_selectors.asp), it will select all elements with `class=“short-desc”`. See [CSS selector link documentation from W3Schools](https://www.w3schools.com/cssref/css_selectors.asp) for more selector examples.
+48. The `“.”` in from of `“short-desc”` is [CSS selector syntax](https://www.w3schools.com/cssref/css_selectors.asp), it will select all elements with `class=“short-desc”`. See [CSS selector link documentation from W3Schools](https://www.w3schools.com/cssref/css_selectors.asp) for more selector examples.
 
-51. Next step is to find the date of each lie. Again we're looking for patterns in the HTML tags that let us see and find the elements we're looking for.
+49. Next step is to find the date of each lie. Again we're looking for patterns in the HTML tags that let us see and find the elements we're looking for.
 
-52. For this we notice that each date is wrapped within a `<strong>` tag. Thus, extracting nodes with the `<strong>` tag will provide the dates we need
+50. For this we notice that each date is wrapped within a `<strong>` tag. Thus, extracting nodes with the `<strong>` tag will provide the dates we need
 ```R
 # extracting nodes with <strong> tag
 dates <- html_nodes(lies, "strong")
 ```
 
-53. We also want to remove non-text content from our `dates` object.
+51. We also want to remove non-text content from our `dates` object.
 ```R
 # removes non-text content using html_text
 dates <- html_text(dates, trim = TRUE)
 head(dates)
 ```
 
-54. Extracting each lie requires a different strategy. We could do it using regular expressions, but instead we use the `xml_contents` function.
+52. Extracting each lie requires a different strategy. We could do it using regular expressions, but instead we use the `xml_contents` function.
 ```R
 # extract each lie (could also do this using regular expressions)
 lies_var <- xml_contents(lies)
 head(lies_var)
 ```
 
-55. We see that each lie has three components, the second containing the lie itself, and these components are arranged in a vector. 
+53. We see that each lie has three components, the second containing the lie itself, and these components are arranged in a vector. 
 
-56. We can exploit this ordering and extract the lies using their positions.
+54. We can exploit this ordering and extract the lies using their positions.
 ```R
 # each lie has three components
 # lie is the second component
@@ -261,16 +253,16 @@ lies_var2 <- lies_var[seq(2, length(lies_var), by = 3)]
 head(lies_var2)
 ```
 
-57. We can use a similar strategy to get the urls.
+55. We can use a similar strategy to get the urls.
 ```R
 # gets the URLs for each lie
 lies_var3 <- lies_var[seq(3, length(lies_var), by = 3)]
 head(lies_var3)
 ```
 
-58. From here we see that all the urls are tagged with `<a href...>` tag. 
+56. From here we see that all the urls are tagged with `<a href...>` tag. 
 
-59. We can select these nodes using the tag, and then select the `href` object to get the url itself. 
+57. We can select these nodes using the tag, and then select the `href` object to get the url itself. 
 ```R
 # <a href...> tag lets us isolate just the URLs
 lies_var3 <- html_node(lies_var3, "a")
@@ -278,7 +270,7 @@ url_var <- html_attr(lies_var3, "href")
 head(url_var)
 ```
 
-60. At this point we’ve met our original goal. But a next step might be a textual analysis that further extracts key words or categorizes the urls.
+58. At this point we’ve met our original goal. But a next step might be a textual analysis that further extracts key words or categorizes the urls.
 ```R
 # extracting key words or categorizing URLs
 lies_clean <- data.frame(date = dates, lie = as.character(lies_var2), url = url_var)

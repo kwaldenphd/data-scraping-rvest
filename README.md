@@ -15,6 +15,8 @@ As described in the package documentation, `rvest` helps you scrape information 
 
 For more details on the `rvest` package as part of the `tidyverse`, check out the [package documentation](https://rvest.tidyverse.org/) or a [Hadley Wickham blog post about `rvest`](https://blog.rstudio.com/2014/11/24/rvest-easy-web-scraping-with-r/).
 
+[Link to lab overview video in Pantopo (ND users only)](https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=8874514f-7b43-4046-9688-ac9a013f74bf)
+
 ## Acknowledgements
 
 This lab is based on the ["Introduction to Data Scraping with R"](https://remiller1450.github.io/s230s19/Intro_to_Web_Scraping.html) lab materials developed by [Dr. Ryan Miller](https://remiller1450.github.io/) for the the [STA 230 "Introduction to Data Science" course](https://remiller1450.github.io/sta230f19.html). 

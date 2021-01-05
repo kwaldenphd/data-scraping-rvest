@@ -28,6 +28,8 @@ This lab is based on the ["Introduction to Data Scraping with R"](https://remill
 - [Parsing Unstructured Text Using HTML and CSS](#parsing-unstructured-text-using-html-and-css)
 - [Lab Notebook Questions](#lab-notebook-questions)
 
+[Click here](https://raw.githubusercontent.com/kwaldenphd/data-scraping-rvest/main/data-scraping-rvest-markdown.Rmd) and select "Save as" to download this lab as an R Markdown file.
+
 # Setting Up the Environment
 
 1. Packages we'll need for this lab: `rvest`, `stringr`, `readr`.
